@@ -1,3 +1,4 @@
+import numpy as np
 def find_dup_str(s,n):
   # using two loops I had it splice a piece and then I compare the pieces together and if they are equal it returns a piece
   for i in range(0, len(s)-n+1):

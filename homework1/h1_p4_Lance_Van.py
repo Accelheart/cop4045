@@ -1,3 +1,6 @@
+import math
+import numpy as np
+import matplotlib.pyplot as plt
 def plot_function(fun_str, domain, ns):
   xs = np.linspace(domain[0], domain[1], ns)
   ys = []

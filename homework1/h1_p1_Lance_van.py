@@ -16,6 +16,7 @@ while True:
   if coefA == 0:
     print("not a quadratic equation")
     break
+  # figured I would make part of the quadratic equation as a var and then test if its less than, greater, or equal to 0 to see how many solutions 
   quadraticPart = coefB**2 - 4 * coefA * coefC
   if quadraticPart < 0:
     print("no real solutions")
