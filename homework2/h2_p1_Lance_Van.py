@@ -21,7 +21,13 @@ def line_number(in_file: str, out_file: str) -> None:
 
 def parse_functions(file_parse: str) -> tuple:
     """
+    the parse_functions function opens the python file then reads its contents then find every function definition using the in python
+    module ast which is used to turn all the code into one line in which I read the line and extract information about each function
+    using ast.FunctionDef. The function also includes line number, the function name, and the arguments. It will then remove comments and empty lines and 
+    then sort the functions which will return the tuple at the end.
 
+    file_parse: name of the python file to parse
+    returns tuple that has information about the functions that were found using ast
     """
     try:
         with open(file_parse, "r") as file:
@@ -37,6 +43,8 @@ def parse_functions(file_parse: str) -> tuple:
                     code_lines = function_code.splitlines()
                     clean_lines = []
                     for line in code_lines:
+                        if "#" in line:
+                            line = line.split("#")[0]
                         stripped = line.strip()
                         if stripped and not stripped.startswith("#"):
                             clean_lines.append(line)
