@@ -3,7 +3,8 @@ from testif import testif
 # a
 def add_user(sn: dict, username: str, fullname: str) -> bool:
     """
-    This function is to add a user
+    This function is to add a user to the dictionary if the user does not already exist. 
+    returns true if the user was added, false if the user already exists
     """
     try:
         if username not in sn:
@@ -19,6 +20,7 @@ def add_user(sn: dict, username: str, fullname: str) -> bool:
 def add_friend(sn: dict, user1: str, user2: str) -> bool:
     """
     This function is to add other users as a friend
+    returns true if the friend was added, false if it already exists or doesnt exist
     """
     try: 
         if user1 not in sn or user2 not in sn:
@@ -36,8 +38,9 @@ def add_friend(sn: dict, user1: str, user2: str) -> bool:
  # c 
 def get_friends(sn: dict, user1: str, distance: int) -> list:
     """
-    The get_Friends function finds all friends of the user.
-    returns a list of friends found within a given distance
+    The get_Friends function finds all friends of the user 
+    within a given distance using bfs.
+    It returns a list of friends found within a given distance
     """
     try:
         if user1 not in sn or distance <= 0:
@@ -55,7 +58,6 @@ def get_friends(sn: dict, user1: str, distance: int) -> list:
                     next_level.append(friend)
             current = next_level
         return friends_found
-        return [user for user in visited if user != user1]
     except:
         print("An error occurred while getting friends")
         raise
@@ -63,7 +65,7 @@ def get_friends(sn: dict, user1: str, distance: int) -> list:
 # d
 def save_network(filename: str, sn: dict) -> None:
     """
-    This function saves the social network dictionary to a CSV file
+    This function saves the social network dictionary to a CSV file. 
     """
     try:
         with open(filename, "w", newline="") as file:
@@ -77,7 +79,7 @@ def save_network(filename: str, sn: dict) -> None:
 # e
 def load_network(filename: str) -> dict:
     """
-    Loads a social network from a CSV file and returns it as a dictionary
+    Loads a social network from a CSV file and returns it as a dictionary.
     """
     try: 
         network = {}
@@ -93,7 +95,7 @@ def load_network(filename: str) -> dict:
 # f
 def test_functions() -> None:
     """
-    Tests the social network functions
+    Tests the social network functions 
     """
     try:
         sn = {    'alice': ('Alice Smith', ['maria']),
@@ -118,7 +120,7 @@ def test_functions() -> None:
 # extra credit
 def test() -> None:
     """
-    Tests the social network functions using testif.
+    Tests the social network functions using testif module. 
     """
     sn = {
     'alice': ('Alice Smith', ['maria']),
@@ -157,6 +159,38 @@ def test() -> None:
         "load_network")
 
 if __name__ == "__main__":
+    sn = {
+            'alice': ('Alice Smith', ['maria']),
+            'maria': ('Maria Cortez', ['alice', 'joe', 'david']),
+            'joe': ('Joseph Adams', ['maria', 'eve']),
+            'eve': ('Evelyn Cooper', ['joe']),
+            'david': ('David Benson', ['maria'])
+        }
+
+    #print("Before:")
+    #print("Alice's friends:", sn["alice"][1])
+    #print("Joe's friends:", sn["joe"][1])
+
+    #print(sn)
+
+    #result = add_user(sn, "bob", "Bob Jones")
+    #result = add_friend(sn, "alice", "joe")
+    #print("\nResult:", result)
+    #print("After:")
+    #print("Alice's friends:", sn["alice"][1])
+    #print("Joe's friends:", sn["joe"][1])
+    #print(sn)
+    #print("Alice's friends at distance 1:")
+    #print(get_friends(sn, "alice", 1))
+
+    #print("\nAlice's friends at distance 2:")
+    #print(get_friends(sn, "alice", 2))
+
+
+    #save_network("social_network.csv", sn)
+
+    #print("Network saved to social_network.csv")
+
     # test_functions()
     test()
 

@@ -34,7 +34,8 @@ def part_d():
     comprehension = [
         (w1, w2)
         for w1 in lst1
-        for w2 in lst2if sorted(w1.lower()) == sorted(w2.lower())
+        for w2 in lst2
+        if sorted(w1.lower()) == sorted(w2.lower())
     ]
     print(comprehension)
 
@@ -56,3 +57,6 @@ def part_f():
         if c.lower() in "aeiou"
     }
     print(comprehension)
+
+if __name__ == "__main__":
+    part_f()

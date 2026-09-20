@@ -4,10 +4,6 @@ def line_number(in_file: str, out_file: str) -> None:
     """
     The line_numer function opens the input file then goes line by line when it then will iterate each line and record 
     it to the output file while also keeping track of the number of the line. 
-
-    in_file represents the input file 
-    out_file represents the output file
-    the function returns the output file that has the lines from the input file numbered. 
     """
     try:
         with open(in_file, "r") as file_in:
@@ -21,13 +17,11 @@ def line_number(in_file: str, out_file: str) -> None:
 
 def parse_functions(file_parse: str) -> tuple:
     """
-    the parse_functions function opens the python file then reads its contents then find every function definition using the in python
+    the parse_functions function opens the python file then reads its contents then find every function definition using the in built python
     module ast which is used to turn all the code into one line in which I read the line and extract information about each function
     using ast.FunctionDef. The function also includes line number, the function name, and the arguments. It will then remove comments and empty lines and 
     then sort the functions which will return the tuple at the end.
 
-    file_parse: name of the python file to parse
-    returns tuple that has information about the functions that were found using ast
     """
     try:
         with open(file_parse, "r") as file:
@@ -62,6 +56,9 @@ def main():
     line_number(__file__, __file__.replace(".py", ".txt"))
     result = parse_functions(__file__)
     print(result)
+    # with open(__file__.replace(".py", ".txt"), "r") as file:
+      #  print(file.read())
+
 
 if __name__ == "__main__":
     main()

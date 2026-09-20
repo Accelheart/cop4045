@@ -4,23 +4,23 @@
 4.     """
 5.     The line_numer function opens the input file then goes line by line when it then will iterate each line and record 
 6.     it to the output file while also keeping track of the number of the line. 
-7. 
-8.     in_file represents the input file 
-9.     out_file represents the output file
-10.     the function returns the output file that has the lines from the input file numbered. 
-11.     """
-12.     try:
-13.         with open(in_file, "r") as file_in:
-14.             in_collection = file_in.readlines()
-15.             with open(out_file, "w") as file_out:
-16.                 for line_num, text_line in enumerate(in_collection, start=1):
-17.                     file_out.write(str(line_num) + ". " + text_line)
-18.     except:
-19.         print("No file was found")
-20.         raise
-21. 
-22. def parse_functions(file_parse: str) -> tuple:
-23.     """
+7.     """
+8.     try:
+9.         with open(in_file, "r") as file_in:
+10.             in_collection = file_in.readlines()
+11.             with open(out_file, "w") as file_out:
+12.                 for line_num, text_line in enumerate(in_collection, start=1):
+13.                     file_out.write(str(line_num) + ". " + text_line)
+14.     except:
+15.         print("No file was found")
+16.         raise
+17. 
+18. def parse_functions(file_parse: str) -> tuple:
+19.     """
+20.     the parse_functions function opens the python file then reads its contents then find every function definition using the in built python
+21.     module ast which is used to turn all the code into one line in which I read the line and extract information about each function
+22.     using ast.FunctionDef. The function also includes line number, the function name, and the arguments. It will then remove comments and empty lines and 
+23.     then sort the functions which will return the tuple at the end.
 24. 
 25.     """
 26.     try:
@@ -37,31 +37,36 @@
 37.                     code_lines = function_code.splitlines()
 38.                     clean_lines = []
 39.                     for line in code_lines:
-40.                         stripped = line.strip()
-41.                         if stripped and not stripped.startswith("#"):
-42.                             clean_lines.append(line)
-43.                     function_code = "\n".join(clean_lines) + "\n"
-44.                     functions.append((line_num, function_name, arguments, function_code))
-45.             functions.sort(key=lambda x: x[1])
-46.             return tuple(functions)
-47.     except:
-48.         print("No file was found")
-49.         raise
-50. 
-51. 
+40.                         if "#" in line:
+41.                             line = line.split("#")[0]
+42.                         stripped = line.strip()
+43.                         if stripped and not stripped.startswith("#"):
+44.                             clean_lines.append(line)
+45.                     function_code = "\n".join(clean_lines) + "\n"
+46.                     functions.append((line_num, function_name, arguments, function_code))
+47.             functions.sort(key=lambda x: x[1])
+48.             return tuple(functions)
+49.     except:
+50.         print("No file was found")
+51.         raise
 52. 
-53. def main():
-54.     line_number(__file__, __file__.replace(".py", ".txt"))
-55.     result = parse_functions(__file__)
-56.     print(result)
-57. 
-58. if __name__ == "__main__":
-59.     main()
-60. 
-61.            
+53. 
+54. 
+55. def main():
+56.     line_number(__file__, __file__.replace(".py", ".txt"))
+57.     result = parse_functions(__file__)
+58.     print(result)
+59.     # with open(__file__.replace(".py", ".txt"), "r") as file:
+60.       #  print(file.read())
+61. 
 62. 
-63. 
-64.             
-65.         
-66. 
-67.         
+63. if __name__ == "__main__":
+64.     main()
+65. 
+66.            
+67. 
+68. 
+69.             
+70.         
+71. 
+72.         

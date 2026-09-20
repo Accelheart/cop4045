@@ -6,7 +6,7 @@ def display_top_collaborations(
     limit: int = None
 ) -> None:
     """
-    Displays director and actor collaborations 
+    Displays director and actor collaboration
     """
     top_rated = set()
     with open(rated_filename, "r", encoding="utf-8") as file:
@@ -39,7 +39,7 @@ def display_top_collaborations(
         if limit is not None:
             sorted_collaborations = sorted_collaborations[:limit]
         for pair, count in sorted_collaborations:
-            print((pair[0], pair[1]. count))
+            print((pair[0], pair[1], count))
 
 # b 
 def display_top_actors(
@@ -53,6 +53,7 @@ def display_top_actors(
     grossing = {}
     with open(grossing_filename, "r", encoding="utf-8") as file:
         reader = csv.reader(file)
+        next(reader)  
         for row in reader:
             title = row[1]
             year = row[2]
@@ -62,7 +63,7 @@ def display_top_actors(
     actor_totals = {}
     with open(cast_filename, "r", encoding ="utf-8") as file:
         reader=csv.reader(file)
-
+        next(reader)  # Skip the header row
         for row in reader:
             title = row[0]
             year = row[1]
