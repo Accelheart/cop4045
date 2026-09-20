@@ -1,3 +1,4 @@
+import ast
 
 def line_number(in_file: str, out_file: str) -> None:
     """
@@ -18,8 +19,41 @@ def line_number(in_file: str, out_file: str) -> None:
         print("No file was found")
         raise
 
+def parse_functions(file_parse: str) -> tuple:
+    """
+
+    """
+    try:
+        with open(file_parse, "r") as file:
+            parse_collection = file.read()
+            parse_tree = ast.parse(parse_collection)
+            functions = []
+            for node in ast.walk(parse_tree):
+                if isinstance(node, ast.FunctionDef):
+                    line_num = node.lineno
+                    function_name = node.name
+                    arguments = ", ".join(arg.arg for arg in node.args.args)
+                    function_code = ast.get_source_segment(parse_collection, node)
+                    code_lines = function_code.splitlines()
+                    clean_lines = []
+                    for line in code_lines:
+                        stripped = line.strip()
+                        if stripped and not stripped.startswith("#"):
+                            clean_lines.append(line)
+                    function_code = "\n".join(clean_lines) + "\n"
+                    functions.append((line_num, function_name, arguments, function_code))
+            functions.sort(key=lambda x: x[1])
+            return tuple(functions)
+    except:
+        print("No file was found")
+        raise
+
+
+
 def main():
-    line_number(__file__, "h2_p1_Lance_Van.txt")
+    line_number(__file__, __file__.replace(".py", ".txt"))
+    result = parse_functions(__file__)
+    print(result)
 
 if __name__ == "__main__":
     main()

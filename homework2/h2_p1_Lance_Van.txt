@@ -1,0 +1,67 @@
+1. import ast
+2. 
+3. def line_number(in_file: str, out_file: str) -> None:
+4.     """
+5.     The line_numer function opens the input file then goes line by line when it then will iterate each line and record 
+6.     it to the output file while also keeping track of the number of the line. 
+7. 
+8.     in_file represents the input file 
+9.     out_file represents the output file
+10.     the function returns the output file that has the lines from the input file numbered. 
+11.     """
+12.     try:
+13.         with open(in_file, "r") as file_in:
+14.             in_collection = file_in.readlines()
+15.             with open(out_file, "w") as file_out:
+16.                 for line_num, text_line in enumerate(in_collection, start=1):
+17.                     file_out.write(str(line_num) + ". " + text_line)
+18.     except:
+19.         print("No file was found")
+20.         raise
+21. 
+22. def parse_functions(file_parse: str) -> tuple:
+23.     """
+24. 
+25.     """
+26.     try:
+27.         with open(file_parse, "r") as file:
+28.             parse_collection = file.read()
+29.             parse_tree = ast.parse(parse_collection)
+30.             functions = []
+31.             for node in ast.walk(parse_tree):
+32.                 if isinstance(node, ast.FunctionDef):
+33.                     line_num = node.lineno
+34.                     function_name = node.name
+35.                     arguments = ", ".join(arg.arg for arg in node.args.args)
+36.                     function_code = ast.get_source_segment(parse_collection, node)
+37.                     code_lines = function_code.splitlines()
+38.                     clean_lines = []
+39.                     for line in code_lines:
+40.                         stripped = line.strip()
+41.                         if stripped and not stripped.startswith("#"):
+42.                             clean_lines.append(line)
+43.                     function_code = "\n".join(clean_lines) + "\n"
+44.                     functions.append((line_num, function_name, arguments, function_code))
+45.             functions.sort(key=lambda x: x[1])
+46.             return tuple(functions)
+47.     except:
+48.         print("No file was found")
+49.         raise
+50. 
+51. 
+52. 
+53. def main():
+54.     line_number(__file__, __file__.replace(".py", ".txt"))
+55.     result = parse_functions(__file__)
+56.     print(result)
+57. 
+58. if __name__ == "__main__":
+59.     main()
+60. 
+61.            
+62. 
+63. 
+64.             
+65.         
+66. 
+67.         
