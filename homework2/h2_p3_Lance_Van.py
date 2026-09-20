@@ -1,4 +1,5 @@
 import csv
+from testif import testif
 # a
 def add_user(sn: dict, username: str, fullname: str) -> bool:
     """
@@ -114,6 +115,48 @@ def test_functions() -> None:
     except:
         print("An error occurred while testing the functions")
         raise
+# extra credit
+def test() -> None:
+    """
+    Tests the social network functions using testif.
+    """
+    sn = {
+    'alice': ('Alice Smith', ['maria']),
+    'maria': ('Maria Cortez', ['alice', 'joe', 'david']),
+    'joe': ('Joseph Adams', ['maria', 'eve']),
+    'eve': ('Evelyn Cooper', ['joe']),
+    'david': ('David Benson', ['maria'])}
+
+    testif(
+        add_user(sn, "bob", "Bob Jones") == True,
+        "add_user new user")
+    testif(
+        add_user(sn, "alice", "Alice Smith") == False,
+        "add_user existing user")
+    testif(
+        add_friend(sn, "alice", "joe") == True,
+        "add_friend new friendship")
+    testif(
+        add_friend(sn, "alice", "maria") == False,
+        "add_friend existing friendship")
+    testif(
+        get_friends(sn, "eve", 1) == ["joe"],
+        "get_friends distance 1")
+    testif(
+        get_friends(sn, "unknown", 1) == [],
+        "get_friends invalid user")
+
+    save_network("test_network.csv", sn)
+    testif(
+        True,
+        "save_network")
+    loaded_sn = load_network("test_network.csv")
+
+    testif(
+        loaded_sn == sn,
+        "load_network")
 
 if __name__ == "__main__":
-    test_functions()
+    # test_functions()
+    test()
+
