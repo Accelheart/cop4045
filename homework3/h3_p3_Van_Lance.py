@@ -179,7 +179,6 @@ class Predator(Animal):
                 self.moved = True
 
 
-# Human class: inherits hunting, movement, breeding, and starvation behavior.
 class Human(Predator):
     """A hunter of predators that does not eat prey."""
     breed_time: int = 8
@@ -212,7 +211,6 @@ def main(predator_breed_time: int = 6, predator_starve_time: int = 3,
     stable_ticks = 0
     for tick in range(1, min(ticks, 1000) + 1):
         isle.clear_all_moved_flags()
-        # Snapshot ensures offspring do not act during the tick of their birth.
         for animal in isle.animals():
             if isle.animal(*animal.position()) is not animal:
                 continue
@@ -227,7 +225,6 @@ def main(predator_breed_time: int = 6, predator_starve_time: int = 3,
         stable_ticks = stable_ticks + 1 if counts == populations[-2] else 0
         if tick % 10 == 0:
             print(f'Tick {tick}: Prey={counts[0]}, Predator={counts[1]}, Human={counts[2]}')
-        # A sustained constant population is treated as convergence.
         if stable_ticks >= 20:
             print(f'Populations remained constant for 20 ticks; stopping at tick {tick}.')
             break
