@@ -3,20 +3,7 @@ import turtle
 
 
 def draw_leaf_straight(level: int, length: float) -> None:
-    """Draw a recursive tree with smaller branches.
-
-    Parameters:
-        level: Number of recursive levels.
-        length: Length of the main stem.
-
-    Preconditions:
-        level must be nonnegative.
-        length must be positive.
-
-    Postconditions:
-        Draws a branching tree and restores the turtle's
-        original position and direction.
-    """
+    """Draw a recursive tree with smaller branches."""
     if level == 0:
         return
 
@@ -32,20 +19,7 @@ def draw_leaf_straight(level: int, length: float) -> None:
     turtle.backward(length)
     
 def draw_leaf_curved(level: int, length: float) -> None:
-    """Draw a recursive leaf with curved branches.
-
-    Parameters:
-        level: Number of recursive levels.
-        length: Length of the main stem.
-
-    Preconditions:
-        level must be nonnegative.
-        length must be positive.
-
-    Postconditions:
-        Draws a curved recursive tree and restores
-        the turtle's original position and heading.
-    """
+    """Draw a recursive leaf with curved branches."""
     if level == 0:
         return
 
@@ -75,19 +49,7 @@ def draw_leaf_curved(level: int, length: float) -> None:
 # Lance Van Z23504457
 # b)
 def strB(n: int, base: int = 10) -> str:
-    """Convert a nonnegative integer to a string in the given base.
-
-    Parameters:
-        n: Nonnegative integer to convert.
-        base: Number base between 2 and 26.
-
-    Preconditions:
-        n must be a nonnegative integer.
-        base must be an integer between 2 and 26.
-
-    Postconditions:
-        Returns the converted number as a string.
-    """
+    """Converts a nonnegative integer to a string in the given base. """
     if not isinstance(n, int):
         raise TypeError("n must be an integer")
 
@@ -109,7 +71,7 @@ def strB(n: int, base: int = 10) -> str:
 
 
 def testif(condition: bool, success: str, failure: str) -> None:
-    """Print a message depending on whether a test passes."""
+    """Prints a message depending on whether a test passes."""
     if condition:
         print(success)
     else:
@@ -117,7 +79,7 @@ def testif(condition: bool, success: str, failure: str) -> None:
 
 
 def test_strB() -> None:
-    """Run four unit tests for the recursive strB function."""
+    """Runs four unit tests for the recursive strB function."""
 
     testif(strB(1234, 10) == "1234",
            "Base 10 test passed",
@@ -135,22 +97,10 @@ def test_strB() -> None:
            "Base 2 test passed",
            "Base 2 test failed")
 
-
+# Lance Van Z23504457
 # c)
 def Cnk_m(n: int, k: int) -> int:
-    """Calculate the binomial coefficient using recursive memoization.
-
-    Parameters:
-        n: Total number of elements.
-        k: Number of elements being chosen.
-
-    Preconditions:
-        n and k must be integers.
-        0 <= k <= n.
-
-    Postconditions:
-        Returns the binomial coefficient C(n, k).
-    """
+    """Calculates the binomial coefficient using recursive memoization."""
     if not isinstance(n, int) or not isinstance(k, int):
         raise TypeError("n and k must be integers")
 
@@ -196,7 +146,7 @@ def test_Cnk_m() -> None:
 
 
 def run_Cnk() -> None:
-    """Run binomial coefficient calculations and display results."""
+    """Runs binomial coefficient calculations and display results."""
     print("\n=== Binomial Coefficient ===")
 
     examples = [(5, 2), (10, 4), (20, 10), (30, 15), (50, 25)]
@@ -208,9 +158,60 @@ def run_Cnk() -> None:
     test_Cnk_m()
 
 
+# d)
+def make_pairs(seq1: list, seq2: list,
+               result: list | None = None) -> list:
+    """Recursively pair elements from two sequences. """
+    if result is None:
+        result = []
+
+    if len(seq1) == 0 or len(seq2) == 0:
+        return result
+
+    result.append((seq1[0], seq2[0]))
+
+    return make_pairs(seq1[1:], seq2[1:], result)
+
+
+def test_make_pairs() -> None:
+    """Runs five unit tests for make_pairs."""
+
+    testif(make_pairs([1, 2, 3], [4, 5, 6]) ==
+           [(1, 4), (2, 5), (3, 6)],
+           "Test 1 passed", "Test 1 failed")
+
+    testif(make_pairs([1, 2, 3], [4, 5]) ==
+           [(1, 4), (2, 5)],
+           "Test 2 passed", "Test 2 failed")
+
+    testif(make_pairs([1, 2, 3], [4, 5, 6, 7, 8, 9]) ==
+           [(1, 4), (2, 5), (3, 6)],
+           "Test 3 passed", "Test 3 failed")
+
+    testif(make_pairs([], [4, 5, 6]) == [],
+           "Test 4 passed", "Test 4 failed")
+
+    testif(make_pairs([1, 2, 3], []) == [],
+           "Test 5 passed", "Test 5 failed")
+
+
+def run_make_pairs() -> None:
+    """Demonstrates recursive pairing and run unit tests."""
+    print("\n=== Making Pairs ===")
+
+    print(make_pairs([1, 2, 3], [4, 5, 6]))
+    print(make_pairs([1, 2, 3], [4, 5]))
+    print(make_pairs([1, 2, 3], [4, 5, 6, 7, 8, 9]))
+    print(make_pairs([], [4, 5, 6, 7, 8, 9]))
+    print(make_pairs([1, 2, 3], [4]))
+    print(make_pairs([1, 2, 3], []))
+
+    print("\n=== Testing make_pairs ===")
+    test_make_pairs()
+
 
 def main() -> None:
-    """Display a menu to select which homework function to run."""
+    """Displays a menu to select which homework function to run."""
     while True:
         print("\n=== Homework 3 Problem 5 ===")
         print("1. Draw Straight Leaf")
@@ -218,9 +219,10 @@ def main() -> None:
         print("3. Base X Conversion")
         print("4. Run strB Tests")
         print("5. Binomial Coefficient")
-        print("6. Exit")
+        print("6. Making Pairs")
+        print("7. Exit")
 
-        choice = input("Enter your choice (1-6): ")
+        choice = input("Enter your choice (1-7): ")
 
         if choice == "1" or choice == "2":
             turtle.reset()
@@ -255,11 +257,14 @@ def main() -> None:
             run_Cnk()
 
         elif choice == "6":
+            run_make_pairs()
+
+        elif choice == "7":
             print("Goodbye!")
             break
 
         else:
-            print("Invalid choice. Please enter 1-6.")
+            print("Invalid choice. Please enter 1-7.")
 
 
 if __name__ == "__main__":
