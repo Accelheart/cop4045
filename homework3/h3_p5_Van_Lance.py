@@ -72,7 +72,7 @@ def draw_leaf_curved(level: int, length: float) -> None:
 
 
 
-
+# Lance Van Z23504457
 # b)
 def strB(n: int, base: int = 10) -> str:
     """Convert a nonnegative integer to a string in the given base.
@@ -136,18 +136,91 @@ def test_strB() -> None:
            "Base 2 test failed")
 
 
+# c)
+def Cnk_m(n: int, k: int) -> int:
+    """Calculate the binomial coefficient using recursive memoization.
+
+    Parameters:
+        n: Total number of elements.
+        k: Number of elements being chosen.
+
+    Preconditions:
+        n and k must be integers.
+        0 <= k <= n.
+
+    Postconditions:
+        Returns the binomial coefficient C(n, k).
+    """
+    if not isinstance(n, int) or not isinstance(k, int):
+        raise TypeError("n and k must be integers")
+
+    if n < 0 or k < 0 or k > n:
+        raise ValueError("Must satisfy 0 <= k <= n")
+
+    memo = {}
+
+    def calculate(n: int, k: int) -> int:
+        """Recursively calculate and store previously computed values."""
+        if k == 0 or k == n:
+            return 1
+
+        if (n, k) in memo:
+            return memo[(n, k)]
+
+        result = calculate(n - 1, k - 1) + calculate(n - 1, k)
+        memo[(n, k)] = result
+
+        return result
+
+    return calculate(n, k)
+
+
+def test_Cnk_m() -> None:
+    """Run four unit tests for the memoized binomial coefficient."""
+
+    testif(Cnk_m(5, 2) == 10,
+           "Test 1 passed",
+           "Test 1 failed")
+
+    testif(Cnk_m(6, 3) == 20,
+           "Test 2 passed",
+           "Test 2 failed")
+
+    testif(Cnk_m(10, 4) == 210,
+           "Test 3 passed",
+           "Test 3 failed")
+
+    testif(Cnk_m(20, 10) == 184756,
+           "Test 4 passed",
+           "Test 4 failed")
+
+
+def run_Cnk() -> None:
+    """Run binomial coefficient calculations and display results."""
+    print("\n=== Binomial Coefficient ===")
+
+    examples = [(5, 2), (10, 4), (20, 10), (30, 15), (50, 25)]
+
+    for n, k in examples:
+        print(f"C({n}, {k}) = {Cnk_m(n, k)}")
+
+    print("\n=== Testing Cnk_m ===")
+    test_Cnk_m()
+
+
 
 def main() -> None:
-    """Display a menu to select which function to run."""
+    """Display a menu to select which homework function to run."""
     while True:
         print("\n=== Homework 3 Problem 5 ===")
         print("1. Draw Straight Leaf")
         print("2. Draw Curved Leaf")
         print("3. Base X Conversion")
         print("4. Run strB Tests")
-        print("5. Exit")
+        print("5. Binomial Coefficient")
+        print("6. Exit")
 
-        choice = input("Enter your choice (1-5): ")
+        choice = input("Enter your choice (1-6): ")
 
         if choice == "1" or choice == "2":
             turtle.reset()
@@ -167,7 +240,7 @@ def main() -> None:
                 draw_leaf_curved(6, 120)
 
             turtle.update()
-            print("Close the turtle window to return to the menu.")
+            print("Close the turtle window when finished.")
             turtle.done()
 
         elif choice == "3":
@@ -179,11 +252,14 @@ def main() -> None:
             test_strB()
 
         elif choice == "5":
+            run_Cnk()
+
+        elif choice == "6":
             print("Goodbye!")
             break
 
         else:
-            print("Invalid choice. Please enter 1-5.")
+            print("Invalid choice. Please enter 1-6.")
 
 
 if __name__ == "__main__":
