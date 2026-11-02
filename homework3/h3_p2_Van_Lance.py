@@ -1,6 +1,8 @@
 
 # a
+#Lance Van Z23504457
 class ParkingPermit:
+    
 
     def __init__(self, owner: str, months: int, fee_schedule: dict):
         """Initializes the owner, purchased months, and fee schedule."""
@@ -14,18 +16,18 @@ class ParkingPermit:
 
     # d
     def __str__(self) -> str:
-        """Returns a  description of the permit."""
+        """Returns description of the permit."""
         return f"Owner: {self.owner}, Months: {self.months}"
 
     def __repr__(self) -> str:
-        """Returns a representation of the permit."""
+        """Returns representation of the permit."""
         return (f"ParkingPermit(owner={self.owner!r}, "
                 f"months={self.months!r}, "
                 f"fee_schedule={self.fee_schedule!r})")
 
 # b
 class StudentPermit(ParkingPermit):
-    """Represents a student parking permit."""
+    """Represents student parking permit."""
 
     def __init__(self, owner: str, months: int,
                  fee_schedule: dict, vehicles: int):
@@ -41,18 +43,18 @@ class StudentPermit(ParkingPermit):
                 * self.fee_schedule["extra_vehicle"])
 # d
     def __str__(self) -> str:
-        """Returns a readable student permit description."""
+        """Returns student permit description."""
         return (f"StudentPermit: {super().__str__()}, "
                 f"Vehicles: {self.vehicles}, Cost: ${self.cost():.2f}")
 
     def __repr__(self) -> str:
-        """Returns a detailed student permit representation."""
+        """Returns student permit representation."""
         return (f"StudentPermit({self.owner!r}, {self.months!r}, "
                 f"{self.fee_schedule!r}, {self.vehicles!r})")
 
 # b
 class FacultyPermit(ParkingPermit):
-    """Represent a faculty parking permit."""
+    """Represent faculty parking permit."""
 
     def __init__(self, owner: str, months: int,
                  fee_schedule: dict, garage_access: bool):
@@ -70,13 +72,13 @@ class FacultyPermit(ParkingPermit):
         return self.months * monthly
 # d
     def __str__(self) -> str:
-        """Returns a readable faculty permit description."""
+        """Returnsfaculty permit description."""
         return (f"FacultyPermit: {super().__str__()}, "
                 f"Garage Access: {self.garage_access}, "
                 f"Cost: ${self.cost():.2f}")
 
     def __repr__(self) -> str:
-        """Returns a detailed faculty permit representation."""
+        """Returns faculty permit representation."""
         return (f"FacultyPermit({self.owner!r}, {self.months!r}, "
                 f"{self.fee_schedule!r}, {self.garage_access!r})")
 
