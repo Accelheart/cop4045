@@ -157,7 +157,7 @@ def run_Cnk() -> None:
     print("\n=== Testing Cnk_m ===")
     test_Cnk_m()
 
-
+# Lance Van Z23504457
 # d)
 def make_pairs(seq1: list, seq2: list,
                result: list | None = None) -> list:
