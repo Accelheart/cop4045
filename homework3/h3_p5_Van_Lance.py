@@ -70,32 +70,50 @@ def strB(n: int, base: int = 10) -> str:
     return strB(n // base, base) + digits[n % base]
 
 
-def testif(condition: bool, success: str, failure: str) -> None:
-    """Prints a message depending on whether a test passes."""
-    if condition:
-        print(success)
+
+def testif(b: bool, testname: str,
+           msgOK: str = "", msgFailed: str = "") -> bool:
+    """Function used for testing.
+
+    param b: Boolean condition being tested.
+    param testname: Name of the test.
+    param msgOK: Message printed if the test passes.
+    param msgFailed: Message printed if the test fails.
+    returns: The boolean result.
+    """
+    if b:
+        print("Success: " + testname + "; " + msgOK)
     else:
-        print(failure)
+        print("Failed: " + testname + "; " + msgFailed)
+
+    return b
 
 
+
+
+# b)
 def test_strB() -> None:
-    """Runs four unit tests for the recursive strB function."""
+    """Run four unit tests for the recursive strB function."""
 
     testif(strB(1234, 10) == "1234",
-           "Base 10 test passed",
-           "Base 10 test failed")
+           "Base 10",
+           "Conversion correct",
+           "Conversion incorrect")
 
     testif(strB(100, 8) == "144",
-           "Base 8 test passed",
-           "Base 8 test failed")
+           "Base 8",
+           "Conversion correct",
+           "Conversion incorrect")
 
     testif(strB(1234, 16) == "4D2",
-           "Base 16 test passed",
-           "Base 16 test failed")
+           "Base 16",
+           "Conversion correct",
+           "Conversion incorrect")
 
     testif(strB(100, 2) == "1100100",
-           "Base 2 test passed",
-           "Base 2 test failed")
+           "Base 2",
+           "Conversion correct",
+           "Conversion incorrect")
 
 # Lance Van Z23504457
 # c)
@@ -125,24 +143,29 @@ def Cnk_m(n: int, k: int) -> int:
     return calculate(n, k)
 
 
+# c)
 def test_Cnk_m() -> None:
     """Run four unit tests for the memoized binomial coefficient."""
 
     testif(Cnk_m(5, 2) == 10,
-           "Test 1 passed",
-           "Test 1 failed")
+           "C(5, 2)",
+           "Binomial coefficient correct",
+           "Binomial coefficient incorrect")
 
     testif(Cnk_m(6, 3) == 20,
-           "Test 2 passed",
-           "Test 2 failed")
+           "C(6, 3)",
+           "Binomial coefficient correct",
+           "Binomial coefficient incorrect")
 
     testif(Cnk_m(10, 4) == 210,
-           "Test 3 passed",
-           "Test 3 failed")
+           "C(10, 4)",
+           "Binomial coefficient correct",
+           "Binomial coefficient incorrect")
 
     testif(Cnk_m(20, 10) == 184756,
-           "Test 4 passed",
-           "Test 4 failed")
+           "C(20, 10)",
+           "Binomial coefficient correct",
+           "Binomial coefficient incorrect")
 
 
 def run_Cnk() -> None:
@@ -173,26 +196,39 @@ def make_pairs(seq1: list, seq2: list,
     return make_pairs(seq1[1:], seq2[1:], result)
 
 
+
+# d)
 def test_make_pairs() -> None:
-    """Runs five unit tests for make_pairs."""
+    """Run five unit tests for the recursive make_pairs function."""
 
     testif(make_pairs([1, 2, 3], [4, 5, 6]) ==
            [(1, 4), (2, 5), (3, 6)],
-           "Test 1 passed", "Test 1 failed")
+           "Equal length",
+           "Pairs match",
+           "Incorrect pairs")
 
     testif(make_pairs([1, 2, 3], [4, 5]) ==
            [(1, 4), (2, 5)],
-           "Test 2 passed", "Test 2 failed")
+           "Shorter second sequence",
+           "Pairs match",
+           "Incorrect pairs")
 
     testif(make_pairs([1, 2, 3], [4, 5, 6, 7, 8, 9]) ==
            [(1, 4), (2, 5), (3, 6)],
-           "Test 3 passed", "Test 3 failed")
+           "Longer second sequence",
+           "Pairs match",
+           "Incorrect pairs")
 
     testif(make_pairs([], [4, 5, 6]) == [],
-           "Test 4 passed", "Test 4 failed")
+           "Empty first sequence",
+           "Returns empty list",
+           "Incorrect result")
 
     testif(make_pairs([1, 2, 3], []) == [],
-           "Test 5 passed", "Test 5 failed")
+           "Empty second sequence",
+           "Returns empty list",
+           "Incorrect result")
+
 
 
 def run_make_pairs() -> None:
